@@ -26,4 +26,12 @@ class Product extends Model
         return $query->where('isDeleted', false);
     }
 
+    public function reduceStock($qty)
+    {
+        if ($this->stok < $qty) {
+            throw new \Exception("Stok produk $this->nama_produk tidak mencukupi.");
+        }
+        $this->decrement('stok', $qty);
+    }
+
 }

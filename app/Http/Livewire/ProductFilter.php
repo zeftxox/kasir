@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Livewire;
 
 use Livewire\Component;
@@ -13,11 +12,11 @@ class ProductFilter extends Component
     public $max_price;
     public $min_stock;
     public $barcode;
-
+    
     public function render()
     {
         $query = Product::with('category')->where('isDeleted', false);
-
+    
         if ($this->category) {
             $query->where('id_kategori', $this->category);
         }
@@ -33,10 +32,14 @@ class ProductFilter extends Component
         if ($this->barcode) {
             $query->where('barcode', 'LIKE', "%{$this->barcode}%");
         }
-
+    
+        // Debugging Query
+        dd($query->toSql(), $query->getBindings());
+    
         return view('livewire.product-filter', [
             'products' => $query->get(),
             'categories' => Category::all()
         ]);
     }
+    
 }

@@ -27,6 +27,6 @@
                 {{ $slot }}
             </div>
         </div>
-        @livewireScripts(true)
+        @livewireScripts
     </body>
 </html>

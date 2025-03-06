@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-
 
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +65,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin/manage-category')->group(fun
     Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.manage-category.edit');
     Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.manage-category.update');
     Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.manage-category.destroy');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('admin.penjualan.index');
+    Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('admin.penjualan.create');
+    Route::post('/penjualan/store', [PenjualanController::class, 'store'])->name('admin.penjualan.store');
+    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('admin.penjualan.show');
+    Route::get('/search-product', [PenjualanController::class, 'searchProduct'])->name('search.product');
 
 });
 
