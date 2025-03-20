@@ -38,8 +38,8 @@ Sebelum menjalankan proyek, pastikan menginstal software berikut:
 Jalankan perintah berikut untuk mengunduh source code:
 
 ```sh
-git clone https://github.com/username/repository-kasir.git
-cd repository-kasir
+git clone https://github.com/zeftoxox/kasir.git
+cd kasir
 ```
 
 ### Instal Dependencies Laravel
