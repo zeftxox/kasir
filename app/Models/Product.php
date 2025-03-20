@@ -15,6 +15,11 @@ class Product extends Model
 
     ];
 
+    protected $casts = [
+        'isDeleted' => 'boolean'
+    ];
+
+
     // Relasi ke kategori
     public function category()
     {

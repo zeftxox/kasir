@@ -4,15 +4,9 @@
             <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Tambah Produk</h2>
 
             @if(session('error'))
+            <div class="bg-white dark:bg-gray-200">
                 <p class="mt-4 text-red-500">{{ session('error') }}</p>
-            @endif
-
-            @if ($errors->any())
-                <ul class="text-red-500">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+            </div>
             @endif
 
             <form method="POST" action="{{ route('admin.manage-products.store') }}" class="mt-6 space-y-4">

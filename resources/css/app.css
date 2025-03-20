@@ -1,3 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    input[type="dropdown"]::-webkit-inner-spin-button,
+    input[type="dropdown"]::-webkit-outer-spin-button {
+        webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+html,
+body {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.dark-mode-handler {
+    transition: background-color 0.3s ease-in-out;
+}
+
+input {
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    /* border-color: #6366f1; */
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}

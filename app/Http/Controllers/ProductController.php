@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    
 public function index(Request $request)
 {
     $perPage = $request->input('per_page', 5); // Default 5 per halaman

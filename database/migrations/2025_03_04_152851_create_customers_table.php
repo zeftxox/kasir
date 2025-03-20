@@ -11,7 +11,8 @@ return new class extends Migration {
             $table->id();
             $table->string('nama_pelanggan')->nullable();
             $table->text('alamat_pelanggan')->nullable();
-            $table->string('nomor_hp', 15)->nullable();
+            $table->string('nomor_hp', 15)->unique();
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

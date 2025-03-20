@@ -157,4 +157,5 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+    'layout' => 'layouts.app', // Pastikan sesuai dengan struktur file Anda
 ];

@@ -25,80 +25,35 @@ class PenjualanController extends Controller
 
         return view('admin.penjualan.create', compact('customers', 'produk'));
     }
-
-    public function searchProduct(Request $request)
-    {
-        $query = $request->input('query');
-
-        $products = Product::where('stok', '>', 0)
-                    ->where(function ($q) use ($query) {
-                        $q->where('nama_produk', 'like', "%$query%")
-                          ->orWhere('barcode', 'like', "%$query%");
-                    })
-                    ->get();
-
-        return response()->json($products);
-    }
-
-    public function store(Request $request)
-    {
-        DB::transaction(function () use ($request) {
-            // Validasi agar `total_harga` tidak NULL
-            if (!$request->total_harga || $request->total_harga <= 0) {
-                throw new \Exception("Total harga tidak boleh kosong atau nol.");
-            }
     
-            // Cek apakah pelanggan sudah ada atau buat baru
-            $customer = null;
-            if ($request->nama_customer) {
-                $customer = Customer::firstOrCreate(
-                    ['nama_pelanggan' => $request->nama_customer],
-                    [
-                        'alamat_pelanggan' => $request->alamat_customer ?? '', 
-                        'nomor_hp' => $request->nomor_customer ?? null
-                    ]
-                );
-            }
-    
-            // Simpan transaksi
-            $penjualan = Penjualan::create([
-                'id_user'          => Auth::id(),
-                'id_customer'      => $customer ? $customer->id : null,
-                'discount'         => $request->discount ?? 0,
-                'total_harga'      => $request->total_harga, // **Pastikan tidak NULL**
-                'penyesuaian'      => $request->penyesuaian ?? 0,
-                'total_bayar'      => $request->total_bayar,
-                'kembalian'        => $request->kembalian,
-                'tanggal_penjualan'=> now()
-            ]);
-    
-            foreach ($request->products as $produk) {
-                $product = Product::findOrFail($produk['id_product']);
-    
-                if ($product->stok < $produk['qty']) {
-                    throw new \Exception("Stok produk {$product->nama_produk} tidak mencukupi.");
-                }
-    
-                DetailPenjualan::create([
-                    'id_penjualan' => $penjualan->id,
-                    'id_product'   => $produk['id_product'],
-                    'harga_jual'   => $produk['harga_jual'],
-                    'qty'          => $produk['qty'],
-                    'subtotal'     => $produk['subtotal'],
-                    'tanggal_penjualan' => now()
-                ]);
-    
-                $product->decrement('stok', $produk['qty']);
-            }
-        });
-    
-        return response()->json(['success' => true, 'message' => 'Transaksi berhasil disimpan.']);
-    }
-            
-
-    public function show($id)
+    public function printInvoice($id)
     {
         $penjualan = Penjualan::with('detailPenjualan.product', 'customer')->findOrFail($id);
+        
+        return view('admin.penjualan.invoice', compact('penjualan'));
+    }
+    
+    
+    public function show($id)
+    {
+        $penjualan = Penjualan::with([
+            'customer',
+            'user',
+            'detailPenjualan.product'
+        ])->findOrFail($id);
+    
         return view('admin.penjualan.show', compact('penjualan'));
     }
+
+    public function detail($id)
+    {
+        $penjualan = Penjualan::with([
+            'customer',
+            'user',
+            'detailPenjualan.product'
+        ])->findOrFail($id);
+    
+        return view('admin.penjualan.detail', compact('penjualan'));
+    }
+    
 }

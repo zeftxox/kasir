@@ -12,7 +12,7 @@ class Penjualan extends Model
 
     protected $fillable = [
         'id_user', 'id_customer', 'discount', 'total_harga', 
-        'penyesuaian', 'total_bayar', 'kembalian', 'tanggal_penjualan'
+        'penyesuaian', 'total_bayar','nominal_bayar', 'kembalian', 'tanggal_penjualan', 'isDeleted',
     ];
 
     public function customer()
@@ -25,7 +25,7 @@ class Penjualan extends Model
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function detailPenjualan() // Perbaikan: Nama function sesuai dengan relasi di Laravel
+    public function detailPenjualan()
     {
         return $this->hasMany(DetailPenjualan::class, 'id_penjualan');
     }

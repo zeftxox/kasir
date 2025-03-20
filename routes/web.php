@@ -7,8 +7,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Livewire\Admin\Categories\ManageCategories;
+use App\Http\Livewire\OfficerManageProducts;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Admin\Customers\ManageCustomers;
+use App\Http\Livewire\Admin\Customers\CreateCustomer;
+use App\Http\Livewire\Admin\Customers\EditCustomer;
+use App\Http\Livewire\Admin\Users\ManageUsers;
+
 
 
 Route::get('/', function () {
@@ -39,13 +45,14 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin/manage-users')->group(function () {
-    Route::get('/', [UserController::class, 'index'])->name('admin.manage-users.index');
+    Route::get('/', ManageUsers::class)->name('admin.manage-users.index');
     Route::get('/create', [UserController::class, 'create'])->name('admin.manage-users.create');
     Route::post('/', [UserController::class, 'store'])->name('admin.manage-users.store');
     Route::get('/{id}/edit', [UserController::class, 'edit'])->name('admin.manage-users.edit');
     Route::put('/{id}', [UserController::class, 'update'])->name('admin.manage-users.update');
     Route::delete('/{id}', [UserController::class, 'destroy'])->name('admin.manage-users.destroy');
 });
+
 Route::middleware(['auth', 'admin'])->prefix('admin/manage-product')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('admin.manage-products.index');
     Route::get('/create', [ProductController::class, 'create'])->name('admin.manage-products.create');
@@ -59,23 +66,35 @@ Route::middleware(['auth', 'admin'])->prefix('admin/manage-product')->group(func
 
 });
 Route::middleware(['auth', 'admin'])->prefix('admin/manage-category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index'])->name('admin.manage-category.index');
-    Route::get('/create', [CategoryController::class, 'create'])->name('admin.manage-category.create');
-    Route::post('/', [CategoryController::class, 'store'])->name('admin.manage-category.store');
-    Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.manage-category.edit');
-    Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.manage-category.update');
-    Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.manage-category.destroy');
+    Route::get('/',ManageCategories::class)->name('admin.manage-category.index');
+    // Route::get('/create', [CategoryController::class, 'create'])->name('admin.manage-category.create');
+    // Route::post('/', [CategoryController::class, 'store'])->name('admin.manage-category.store');
+    // Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('admin.manage-category.edit');
+    // Route::put('/{id}', [CategoryController::class, 'update'])->name('admin.manage-category.update');
+    // Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('admin.manage-category.destroy');
 
 });
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/penjualan', [PenjualanController::class, 'index'])->name('admin.penjualan.index');
-    Route::get('/penjualan/create', [PenjualanController::class, 'create'])->name('admin.penjualan.create');
-    Route::post('/penjualan/store', [PenjualanController::class, 'store'])->name('admin.penjualan.store');
-    Route::get('/penjualan/{id}', [PenjualanController::class, 'show'])->name('admin.penjualan.show');
-    Route::get('/search-product', [PenjualanController::class, 'searchProduct'])->name('search.product');
+Route::middleware(['auth'])->prefix('penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index'])->name('admin.penjualan.index');
+    Route::get('/create', [PenjualanController::class, 'create'])->name('admin.penjualan.create');
+    Route::post('/store', [PenjualanController::class, 'store'])->name('admin.penjualan.store');
+    Route::get('/invoice/{id}', [PenjualanController::class, 'printInvoice'])->name('admin.penjualan.invoice');
+    Route::get('/detail/{id}', [PenjualanController::class, 'detail'])->name('admin.penjualan.detail');
+    Route::get('/show/{id}', [PenjualanController::class, 'show'])->name('admin.penjualan.show');
 
 });
+
+Route::middleware(['auth', 'admin'])->prefix('admin/customers')->group(function () {
+    Route::get('/', ManageCustomers::class)->name('admin.customers.index');
+    // Route::get('/create', CreateCustomer::class)->name('admin.customers.create');
+    // Route::get('/edit/{id}', EditCustomer::class)->name('admin.customers.edit');
+});
+
+Route::middleware(['auth', 'officer'])->group(function () {
+    Route::get('/officer/manage-products', OfficerManageProducts::class)->name('officer.manage-products');
+});
+
 
 
 

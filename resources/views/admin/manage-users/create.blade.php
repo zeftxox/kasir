@@ -19,6 +19,8 @@
                 <!-- Nama -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
+                    @error('nama') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+
                     <input type="text" name="nama" 
                            class="w-full p-2 mt-1 border rounded-md dark:bg-gray-900 dark:border-gray-700 dark:text-white">
                 </div>

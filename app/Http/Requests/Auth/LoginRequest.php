@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
 
     public function authenticate(): void
     {
-        if (! Auth::attempt(['username' => $this->username, 'password' => $this->password])) {
+        if (! Auth::attempt(['username' => $this->username, 'password' => $this->password, 'isDeleted' => false])) {
             throw \Illuminate\Validation\ValidationException::withMessages([
                 'username' => __('Username atau password salah.'),
             ]);

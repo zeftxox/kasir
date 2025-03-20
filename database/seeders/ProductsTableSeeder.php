@@ -110,6 +110,46 @@ class ProductsTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'id_kategori' => 3, // Makanan & Minuman
+                'nama_produk' => 'Kacang',
+                'harga_jual' => 150000,
+                'harga_beli' => 120000,
+                'stok' => 20,
+                'barcode' => '1234567890133',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_kategori' => 3, // Makanan & Minuman
+                'nama_produk' => 'Sarden',
+                'harga_jual' => 150000,
+                'harga_beli' => 120000,
+                'stok' => 20,
+                'barcode' => '1234567890134',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_kategori' => 3, // Makanan & Minuman
+                'nama_produk' => 'Telur',
+                'harga_jual' => 150000,
+                'harga_beli' => 120000,
+                'stok' => 20,
+                'barcode' => '1234567890135',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_kategori' => 3, // Makanan & Minuman
+                'nama_produk' => 'Dancow',
+                'harga_jual' => 150000,
+                'harga_beli' => 120000,
+                'stok' => 20,
+                'barcode' => '1234567890136',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

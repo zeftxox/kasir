@@ -9,10 +9,11 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_pelanggan', 'alamat_pelanggan', 'nomor_hp'];
+    protected $fillable = ['nama_pelanggan', 'alamat_pelanggan', 'nomor_hp','isDeleted'];
 
     public function penjualan()
     {
         return $this->hasMany(Penjualan::class, 'id_customer');
     }
+    
 }

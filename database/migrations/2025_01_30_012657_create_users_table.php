@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('password');
             $table->text('alamat')->nullable();
             $table->string('no_handphone', 15)->nullable();
+            $table->boolean('isDeleted')->default(false);
             $table->timestamps();
         });
     }

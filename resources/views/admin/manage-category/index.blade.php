@@ -20,9 +20,9 @@
                 </a>
             </div>
 
-            <div class="overflow-x-auto mt-6">
+            <div class="overflow-x-auto mt-6 rounded-lg">
                 <table class="w-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800">
-                    <thead class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                    <thead class="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-medium">Kategori</th>
                             <th class="px-6 py-3 text-left text-sm font-medium">Aksi</th>

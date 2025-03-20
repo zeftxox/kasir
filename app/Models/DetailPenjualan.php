@@ -9,7 +9,7 @@ class DetailPenjualan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id_penjualan', 'id_product', 'harga_jual', 'qty', 'subtotal'];
+    protected $fillable = ['id_penjualan', 'id_products', 'harga_jual', 'qty', 'subtotal', 'discount', 'harga_discount', 'tanggal_penjualan'];
 
     public function penjualan()
     {
@@ -18,6 +18,6 @@ class DetailPenjualan extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'id_product');
+        return $this->belongsTo(Product::class, 'id_products');
     }
 }

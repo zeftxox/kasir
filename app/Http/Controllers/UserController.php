@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $messages = ['nama.required' => 'Nama wajib diisi.'];
+
     public function index()
     {
         $users = User::all();
@@ -78,7 +80,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->delete();
+        $user->update([
+            'isDeleted' => true,
+        ]);
         return redirect()->route('admin.manage-users.index')->with('success', 'User berhasil dihapus.');
     }
 }
